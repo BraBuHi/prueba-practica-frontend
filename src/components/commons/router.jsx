@@ -2,7 +2,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import StoreIndex from "../store/StoreIndex";
-import ProducsIndex from "../producs/ProducsIndex";
+import ProductIndex from "../producs/ProductIndex";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/productos",
-    element: <ProducsIndex />,
+    element: <ProductIndex />,
   },
   {
     path: "/tiendas",
