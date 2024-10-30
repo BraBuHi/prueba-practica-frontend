@@ -1,26 +1,44 @@
 import { useState } from "react";
-import DeleteModal from "../commons/DeleteModal";
+import DeleteModal from "../commons/DeleteModal"; 
+import EditModal from "../commons/EditModal"; 
 import axios from "axios";
 
 export default function StoreList({ stores }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [storeIdToDelete, setStoreIdToDelete] = useState(null); // Para almacenar el ID de la tienda a eliminar
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [storeIdToDelete, setStoreIdToDelete] = useState(null); 
+    const [storeToEdit, setStoreToEdit] = useState(null); 
 
     const handleDelete = async () => {
         try {
             await axios.delete(`http://localhost:3000/stores/${storeIdToDelete}`);
             console.log('Tienda Eliminada');
-            setIsModalOpen(false);
-            // Aquí podrías agregar lógica para actualizar tu lista de tiendas
-            // Por ejemplo, refrescar la lista de tiendas
+            setIsDeleteModalOpen(false);
+            
         } catch (error) {
             console.error('Error al Eliminar Tienda:', error);
         }
     };
 
-    const openModal = (id) => {
-        setStoreIdToDelete(id); // Establece el ID de la tienda a eliminar
-        setIsModalOpen(true);
+    const openDeleteModal = (id) => {
+        setStoreIdToDelete(id);
+        setIsDeleteModalOpen(true);
+    };
+
+    const openEditModal = (store) => {
+        setStoreToEdit(store);
+        setIsEditModalOpen(true);
+    };
+
+    const handleEdit = async (updatedStore) => {
+        try {
+            await axios.put(`http://localhost:3000/stores/${updatedStore.id}`, updatedStore);
+            console.log('Tienda Actualizada');
+            setIsEditModalOpen(false);
+            
+        } catch (error) {
+            console.error('Error al Actualizar Tienda:', error);
+        }
     };
 
     return (
@@ -29,10 +47,13 @@ export default function StoreList({ stores }) {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Nombre De Tienda
+                            Nombre de Tienda
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Ciudad
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Dirección
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Editar
@@ -52,12 +73,21 @@ export default function StoreList({ stores }) {
                                 {store.ciudad}
                             </td>
                             <td className="px-6 py-4">
-                                <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-3">Editar</a>
+                                {store.direccion}
                             </td>
                             <td className="px-6 py-4">
                                 <button
-                                    onClick={() => openModal(store.id)} // Abre el modal con el ID de la tienda
-                                    className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                                    onClick={() => openEditModal(store)} 
+                                    className="block text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                                    type="button"
+                                >
+                                    Editar
+                                </button>
+                            </td>
+                            <td className="px-6 py-4">
+                                <button
+                                    onClick={() => openDeleteModal(store.id)}
+                                    className="block text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
                                     type="button"
                                 >
                                     Eliminar
@@ -69,9 +99,16 @@ export default function StoreList({ stores }) {
             </table>
 
             <DeleteModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                isOpen={isDeleteModalOpen}
+                onClose={() => setIsDeleteModalOpen(false)}
                 onConfirm={handleDelete}
+            />
+
+            <EditModal
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
+                onConfirm={handleEdit}
+                store={storeToEdit}
             />
         </div>
     );
