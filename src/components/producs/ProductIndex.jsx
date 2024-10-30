@@ -1,14 +1,36 @@
 import React from 'react';
 import NavBar from '../Navbar';
-import ProductForm from './productForm';
+import ProductList from './productList';
 
 function ProductIndex() {
+  const products=[
+    {
+      id:1,
+      name:"producto1",
+      price:12000
+    },
+    {
+      id:2,
+      name:"producto2",
+      price:11000
+    },
+    {
+      id:3,
+      name:"producto3",
+      price:10000
+    },
+    {
+      id:4,
+      name:"producto4",
+      price:10000
+    }
+  ]
   return (
     <div>
       <NavBar />
-      <h1>productos</h1>
-      <div className="max-w-7xl mx-auto p-4">
-        <ProductForm />
+        <div className="max-w-7xl mx-auto p-4">
+        <a href="/productos/crear">Crear Producto</a>
+        <ProductList products={products} />
       </div>
     </div>
   )

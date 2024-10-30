@@ -6,9 +6,9 @@ function StoreIndex() {
   return (
     <div>
       <NavBar />
-      <h1>Store</h1>
       <div className="max-w-7xl mx-auto p-4">
-        <StoreForm />
+        <h1>Lista De Tiendas</h1>
+        <a href="/tiendas/crear">Crear Tienda</a>
         </div>
     </div>
 
