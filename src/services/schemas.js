@@ -8,6 +8,6 @@ export const Productschema = yup.object({
 
 export const Storeschema = yup.object({
     nombre: yup.string().min(3,"Debe ser mayor a 3 letras").required('Este campo es obligatorio'),
-    ciudad: yup.string().max(3, "Ciudad solo debe ser un codigo de 3 letras").required('Este campo es obligatorio'),
+    ciudad: yup.string().max(3, "Ciudad solo debe ser un codigo de 3 letras Mayusculas").required('Este campo es obligatorio'),
     direccion: yup.string().required('Este campo es obligatorio'),
 }).required();
