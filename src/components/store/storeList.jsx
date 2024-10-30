@@ -1,4 +1,9 @@
+import ModalDelete from "../commons/modal";
+
 export default function StoreList({stores}) {
+    const hanledOpenModel=(id)=>{
+        console.log(id)
+    }
     return (
       
   <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -33,8 +38,7 @@ export default function StoreList({stores}) {
                       
                   </td>
                   <td className="px-6 py-4">
-                      
-                      <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-3">Eliminar</a>
+                      <ModalDelete id={store.id} openModal={hanledOpenModel} />
                   </td>
               </tr>
               )}

@@ -3,20 +3,22 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Productschema } from '../../services/schemas';
 import NavBar from '../Navbar';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const ProductForm = () => {
     // Define the validation schema
 
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(Productschema)
     });
 
     const onSubmit = async (data) => {
         try {
-            // Here you can make the API call with axios
-            //  const response = await axios.post('/api/products', data);
-            console.log(data); // Handle the response as you wish
+            const response=await axios.post("http://localhost:3000/products",data);
+            navigate("/productos")
         } catch (error) {
             console.error('Error al Agregar Producto:', error);
         }
@@ -32,40 +34,40 @@ const ProductForm = () => {
                 <h2 className="text-xl font-bold mb-4 text-center">Agregar Producto</h2>
 
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-gray-700">Nombre Del Producto:</label>
+                    <label htmlFor="nombre" className="block text-gray-700">Nombre Del Producto:</label>
                     <input
                         type="text"
-                        id="name"
-                        {...register('name')}
+                        id="nombre"
+                        {...register('nombre')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                         placeholder='Example'
                     />
-                    {errors.name && <span className="text-red-500">{errors.name.message}</span>}
+                    {errors.nombre && <span className="text-red-500">{errors.nombre.message}</span>}
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="price" className="block text-gray-700">Precio:</label>
+                    <label htmlFor="precio" className="block text-gray-700">Precio:</label>
                     <input
                         type="number"
-                        id="price"
-                        {...register('price')}
+                        id="precio"
+                        {...register('precio')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                         placeholder='0'
                     />
-                    {errors.price && <span className="text-red-500">{errors.price.message}</span>}
+                    {errors.precio && <span className="text-red-500">{errors.precio.message}</span>}
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="type" className="block text-gray-700">Tipo De Producto:</label>
+                    <label htmlFor="tipo" className="block text-gray-700">Tipo De Producto:</label>
                     <select
-                        id="type"
-                        {...register('type')}
+                        id="tipo"
+                        {...register('tipo')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                     >
-                        <option value="Perecedero">Perecedero</option>
-                        <option value="No-Perecedero">No Perecedero</option>
+                        <option value="tipo">Perecedero</option>
+                        <option value="tipo">No Perecedero</option>
                     </select>
-                    {errors.type && <span className="text-red-500">{errors.type.message}</span>}
+                    {errors.tipo && <span className="text-red-500">{errors.tipo.message}</span>}
                 </div>
                 <div className='text-center mt-5'>
                     <button

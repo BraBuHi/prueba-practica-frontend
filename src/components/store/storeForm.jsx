@@ -4,11 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Storeschema } from '../../services/schemas';
 import NavBar from '../Navbar';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const StoreForm = () => {
     // Define the validation schema
 
-    
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(Storeschema)
     });
@@ -16,7 +17,7 @@ const StoreForm = () => {
     const onSubmit = async (data) => {
         try {
             const response=await axios.post("http://localhost:3000/stores",data);
-            
+            navigate("/tiendas")
         } catch (error) {
             console.error('Error al Agregar Tienda:', error);
         }
