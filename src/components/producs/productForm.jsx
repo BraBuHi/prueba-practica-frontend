@@ -64,8 +64,8 @@ const ProductForm = () => {
                         {...register('tipo')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                     >
-                        <option value="tipo">Perecedero</option>
-                        <option value="tipo">No Perecedero</option>
+                        <option value="Perecedero">Perecedero</option>
+                        <option value="No-Perecedero">No Perecedero</option>
                     </select>
                     {errors.tipo && <span className="text-red-500">{errors.tipo.message}</span>}
                 </div>
