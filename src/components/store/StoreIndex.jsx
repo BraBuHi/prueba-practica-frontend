@@ -1,32 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavBar from '../Navbar';
-import StoreForm from './storeForm';
 import StoreList from './storeList';
+import axios from 'axios';
 
 function StoreIndex() {
-    const stores=[
-        {
-          id:1,
-          name:"tienda1",
-          city:"Armenia"
-        },
-        {
-            id:2,
-            name:"tienda2",
-            city:"Armenia"
-          },
-          {
-            id:3,
-            name:"tienda3",
-            city:"Armenia"
-          },
-          {
-            id:4,
-            name:"tienda4",
-            city:"Armenia"
-          },
-      ]
-
+    const [stores,setStores]=useState([]);
+    useEffect(()=>{
+      getStores()   
+    },[])
+    const getStores=async()=>{
+        const response=await axios.get("http://localhost:3000/stores");
+        const _stores=response.data;
+        setStores(_stores)
+    } 
+    
   return (
     <div>
       <NavBar />

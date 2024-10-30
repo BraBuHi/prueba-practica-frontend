@@ -3,20 +3,20 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Storeschema } from '../../services/schemas';
 import NavBar from '../Navbar';
+import axios from 'axios';
 
 const StoreForm = () => {
     // Define the validation schema
 
-
+    
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(Storeschema)
     });
 
     const onSubmit = async (data) => {
         try {
-            // Here you can make the API call with axios
-            //  const response = await axios.post('/api/products', data);
-            console.log(data); // Handle the response as you wish
+            const response=await axios.post("http://localhost:3000/stores",data);
+            
         } catch (error) {
             console.error('Error al Agregar Tienda:', error);
         }
@@ -33,39 +33,39 @@ const StoreForm = () => {
                 <h2 className="text-xl font-bold mb-4 text-center">Agregar La Tienda</h2>
 
                 <div className="mb-4">
-                    <label htmlFor="name" className="block text-gray-700">Nombre De La Tienda:</label>
+                    <label htmlFor="nombre" className="block text-gray-700">Nombre De La Tienda:</label>
                     <input
                         type="text"
-                        id="name"
-                        {...register('name')}
+                        id="nombre"
+                        {...register('nombre')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                         placeholder='Example'
                     />
-                    {errors.name && <span className="text-red-500">{errors.name.message}</span>}
+                    {errors.nombre && <span className="text-red-500">{errors.nombre.message}</span>}
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="city" className="block text-gray-700">Ciudad:</label>
+                    <label htmlFor="ciudad" className="block text-gray-700">Ciudad:</label>
                     <input
                         type="text"
-                        id="city"
-                        {...register('city')}
+                        id="ciudad"
+                        {...register('ciudad')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                         placeholder='Example'
                     />
-                    {errors.city && <span className="text-red-500">{errors.city.message}</span>}
+                    {errors.ciudad && <span className="text-red-500">{errors.ciudad.message}</span>}
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="address" className="block text-gray-700">Direccion</label>
+                    <label htmlFor="direccion" className="block text-gray-700">Direccion</label>
                     <input
                         type="text"
-                        id="address"
-                        {...register('address')}
+                        id="direccion"
+                        {...register('direccion')}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring focus:ring-orange-200"
                         placeholder='Example'
                     />
-                    {errors.address && <span className="text-red-500">{errors.address.message}</span>}
+                    {errors.direccion && <span className="text-red-500">{errors.direccion.message}</span>}
                 </div>
                 <div className='mt-5 text-center'>
                     <button
