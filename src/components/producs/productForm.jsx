@@ -8,8 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ProductForm = () => {
-    // Define the validation schema
-
+    
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(Productschema)

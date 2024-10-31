@@ -2,19 +2,22 @@ import { useState } from "react";
 import DeleteModal from "../commons/DeleteModal"; 
 import EditModalProduct from "../commons/EditModalProduct"; 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductList({ products }) {
+    const navigate = useNavigate();
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [productIdToDelete, setProductIdToDelete] = useState(null); 
     const [productToEdit, setProductToEdit] = useState(null); 
+    
 
     const handleDelete = async () => {
         try {
             await axios.delete(`http://localhost:3000/products/${productIdToDelete}`);
             console.log('Producto Eliminado');
             setIsDeleteModalOpen(false);
-            
+            navigate("/productos")
         } catch (error) {
             console.error('Error al Eliminar Producto:', error);
         }
@@ -35,7 +38,7 @@ export default function ProductList({ products }) {
             await axios.put(`http://localhost:3000/products/${updatedProduct.id}`, updatedProduct);
             console.log('Producto Actualizado');
             setIsEditModalOpen(false);
-            
+            navigate("/productos")
         } catch (error) {
             console.error('Error al Actualizar Producto:', error);
         }

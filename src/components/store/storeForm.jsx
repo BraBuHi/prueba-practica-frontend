@@ -7,8 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const StoreForm = () => {
-    // Define the validation schema
-
+    
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(Storeschema)

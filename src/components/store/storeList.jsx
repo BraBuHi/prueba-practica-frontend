@@ -2,8 +2,10 @@ import { useState } from "react";
 import DeleteModal from "../commons/DeleteModal"; 
 import EditModal from "../commons/EditModal"; 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function StoreList({ stores }) {
+    const navegation= useNavigate()
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [storeIdToDelete, setStoreIdToDelete] = useState(null); 
@@ -14,7 +16,7 @@ export default function StoreList({ stores }) {
             await axios.delete(`http://localhost:3000/stores/${storeIdToDelete}`);
             console.log('Tienda Eliminada');
             setIsDeleteModalOpen(false);
-            
+            navegation=("/")
         } catch (error) {
             console.error('Error al Eliminar Tienda:', error);
         }
@@ -35,7 +37,7 @@ export default function StoreList({ stores }) {
             await axios.put(`http://localhost:3000/stores/${updatedStore.id}`, updatedStore);
             console.log('Tienda Actualizada');
             setIsEditModalOpen(false);
-            
+            navegation=("/")
         } catch (error) {
             console.error('Error al Actualizar Tienda:', error);
         }
